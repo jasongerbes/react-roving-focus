@@ -14,21 +14,45 @@ bun add react-roving-focus
 
 ## Usage
 
+Wrap a group of elements in a `<RovingFocusGroup>` and use the `useRovingFocus()` hook to control the `tabIndex` of each element.
+
 ```tsx
-function Example() {
+import { RovingFocusGroup, useRovingFocus } from 'react-roving-focus';
+
+function ExampleGroup() {
   return (
     <RovingFocusGroup>
       <div>
-        <ExampleElement>One</ExampleElement>
-        <ExampleElement>Two</ExampleElement>
-        <ExampleElement>Three</ExampleElement>
+        <ExampleItem>One</ExampleItem>
+        <ExampleItem>Two</ExampleItem>
+        <ExampleItem>Three</ExampleItem>
       </div>
     </RovingFocusGroup>
   );
 }
 
-function ExampleElement({ children }: { children: React.ReactNode }) {
-  const { ref, tabIndex } = useRovingFocus();
+function ExampleItem({ children }: { children: React.ReactNode }) {
+  const { ref, tabIndex } = useRovingFocus<HTMLButtonElement>();
+
+  return (
+    <button ref={ref} tabIndex={tabIndex}>
+      {children}
+    </button>
+  );
+}
+```
+
+### With existing ref
+
+If your focusable component has an existing `ref`, simply pass it into the `useRovingFocus()` hook.
+
+```tsx
+import { useRef } from 'react';
+import { useRovingFocus } from 'react-roving-focus';
+
+function FocusableComponent({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLButtonElement>(null);
+  const { tabIndex } = useRovingFocus({ ref });
 
   return (
     <button ref={ref} tabIndex={tabIndex}>
