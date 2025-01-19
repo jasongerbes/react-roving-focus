@@ -1,6 +1,6 @@
-# **react-roving-focus**
+# react-roving-focus
 
-Flexible roving focus for React (aka [roving tabindex](https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_roving_tabindex)) with support for lists, grids, and arbitrary layouts.
+Flexible roving focus for React (aka [roving tabindex](https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_roving_tabindex)) with support for lists, responsive grids, and arbitrary layouts.
 
 ## Installation
 
