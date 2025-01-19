@@ -24,8 +24,5 @@
     /* AND if you're building for a library: */
     "declaration": true
   },
-  "exclude": [
-    "dist",
-    "prettier.config.mjs"
-  ]
+  "exclude": ["dist", "prettier.config.mjs"]
 }
