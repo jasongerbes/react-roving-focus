@@ -50,7 +50,7 @@ If your focusable component has an existing `ref`, simply pass it into the `useR
 import { useRef } from 'react';
 import { useRovingFocus } from 'react-roving-focus';
 
-function FocusableComponent({ children }: { children: React.ReactNode }) {
+function ExampleItem({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLButtonElement>(null);
   const { tabIndex } = useRovingFocus({ ref });
 
