@@ -1,6 +1,6 @@
 {
   "name": "react-roving-focus",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Flexible roving focus for React",
   "license": "MIT",
   "keywords": [
@@ -31,6 +31,7 @@
     "format": "prettier --write .",
     "check-format": "prettier --check .",
     "check-exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
+    "changeset": "changeset",
     "local-release": "changeset version && changeset publish",
     "prepublishOnly": "npm run ci"
   },
