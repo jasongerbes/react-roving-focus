@@ -4,6 +4,16 @@ Flexible roving focus for React (aka [roving tabindex](https://www.w3.org/WAI/AR
 
 [![NPM](https://img.shields.io/npm/v/react-roving-focus.svg)](https://www.npmjs.com/package/react-roving-focus) [![bundlephobia](https://img.shields.io/bundlephobia/minzip/react-roving-focus)](https://bundlephobia.com/result?p=react-roving-focus) ![License](https://img.shields.io/github/license/jasongerbes/react-roving-focus)
 
+## Examples
+
+Refer to the `react-roving-focus` [Storybook](https://jasongerbes.github.io/react-roving-focus) for various layout examples:
+
+- [Horizontal Layout](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-horizontal-layout--basic)
+- [Vertical Layout](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-vertical-layout--basic)
+- [Grid Layout](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-grid-layout--fixed-columns) (fixed column count)
+- [Responsive Grid Layout](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-grid-layout--responsive-columns) (variable column count)
+- [Brick Layout](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-brick-layout--basic) (aka Masonry Layout)
+
 ## Installation
 
 ```bash
