@@ -11,6 +11,7 @@ import { RovingFocusContext } from './context.js';
 import {
   getElementPosition,
   getFirstElement,
+  getLastElement,
   getNextElement,
   isElementActive,
 } from './utils.js';
@@ -22,9 +23,10 @@ export interface RovingFocusGroupProps {
 export function RovingFocusGroup({ children }: RovingFocusGroupProps) {
   const focusedElementRef = useRef<FocusableElement | null>(null);
   const firstElementRef = useRef<FocusableElement | null>(null);
+  const lastElementRef = useRef<FocusableElement | null>(null);
   const elementMapRef = useRef(new Map<FocusableElement, ElementCallbacks>());
 
-  const getElements = (): ElementWithPosition[] => {
+  const getElementsWithPosition = (): ElementWithPosition[] => {
     return Array.from(elementMapRef.current.keys())
       .filter(isElementActive)
       .map((element) => ({ element, position: getElementPosition(element) }));
@@ -34,8 +36,10 @@ export function RovingFocusGroup({ children }: RovingFocusGroupProps) {
   const debouncedUpdateState = useMemo(
     () =>
       debounce(() => {
-        // Update the first element.
-        firstElementRef.current = getFirstElement(getElements());
+        // Update the first and last elements.
+        const elements = getElementsWithPosition();
+        firstElementRef.current = getFirstElement(elements);
+        lastElementRef.current = getLastElement(elements);
 
         // Clear the focused element if it's no longer registered.
         if (
@@ -93,32 +97,61 @@ export function RovingFocusGroup({ children }: RovingFocusGroupProps) {
     [updateState],
   );
 
+  const focusElement = useCallback(
+    (element: FocusableElement) => {
+      setFocusedElement(element);
+      element.focus();
+    },
+    [setFocusedElement],
+  );
+
   const focusNextElement = useCallback(
     (direction: Direction) => {
       if (!focusedElementRef.current) {
         return;
       }
+      const elements = getElementsWithPosition();
       const nextElement = getNextElement(
         focusedElementRef.current,
         direction,
-        getElements(),
+        elements,
       );
       if (nextElement) {
-        setFocusedElement(nextElement);
-        nextElement.focus();
+        focusElement(nextElement);
       }
     },
-    [setFocusedElement],
+    [focusElement],
   );
+
+  const focusFirstElement = useCallback(() => {
+    if (firstElementRef.current) {
+      focusElement(firstElementRef.current);
+    }
+  }, [focusElement]);
+
+  const focusLastElement = useCallback(() => {
+    if (lastElementRef.current) {
+      focusElement(lastElementRef.current);
+    }
+  }, [focusElement]);
 
   const contextValue = useMemo(
     () => ({
       registerElement,
       unregisterElement,
-      focusNextElement,
       setFocusedElement,
+      focusNextElement,
+      focusFirstElement,
+      focusLastElement,
     }),
-    [registerElement, unregisterElement, focusNextElement, setFocusedElement],
+    [
+      registerElement,
+      unregisterElement,
+      setFocusedElement,
+      focusNextElement,
+      focusFirstElement,
+      focusLastElement,
+    ],
   );
 
   return (

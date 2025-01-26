@@ -86,6 +86,24 @@ export function getFirstElement(
 }
 
 /**
+ * Returns the bottom-right element.
+ */
+export function getLastElement(
+  elements: ElementWithPosition[],
+): FocusableElement | null {
+  const sortedElements = elements.sort((a, b) => {
+    // Sort by right position if elements are on the same row.
+    if (arePositionsOverlapping(a.position, b.position, 'row')) {
+      return b.position.right - a.position.right;
+    }
+    // Otherwise sort by bottom position.
+    return b.position.bottom - a.position.bottom;
+  });
+
+  return sortedElements[0]?.element ?? null;
+}
+
+/**
  * Returns the distance between the closest edges of two element positions.
  */
 function getDistanceBetweenEdges(
