@@ -1,5 +1,11 @@
 # react-roving-focus
 
+## 0.0.4
+
+### Patch Changes
+
+- e0260fb: Add examples to readme
+
 ## 0.0.3
 
 ### Patch Changes
