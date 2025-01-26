@@ -1,5 +1,11 @@
 # react-roving-focus
 
+## 0.0.3
+
+### Patch Changes
+
+- e7412b9: Improve position calculations
+
 ## 0.0.2
 
 ### Patch Changes
