@@ -40,7 +40,7 @@ export default function BrickLayout({ rowCount }: BrickLayoutProps) {
         {rows.map((row, rowIndex) => (
           <React.Fragment key={rowIndex}>
             {row.map((colSpan) => (
-              <FocusableItem key={itemCounter} className={cn(colSpan, 'px-0')}>
+              <FocusableItem key={itemCounter} className={colSpan}>
                 {itemCounter++}
               </FocusableItem>
             ))}

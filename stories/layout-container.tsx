@@ -9,7 +9,7 @@ export function LayoutContainer({ children, className }: LayoutContainerProps) {
   return (
     <div
       className={cn(
-        'gap-3 rounded-3xl border border-gray-300 bg-gray-50 p-4',
+        'gap-2.5 rounded-2xl border border-gray-300 bg-gray-50 p-3',
         className,
       )}
     >

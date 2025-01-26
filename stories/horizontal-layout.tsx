@@ -22,7 +22,10 @@ export function HorizontalLayout({
         )}
       >
         {Array.from({ length: itemCount }, (_, i) => (
-          <FocusableItem className="grow" key={i}>
+          <FocusableItem
+            className={cn('grow', overflow !== 'none' && 'px-8')}
+            key={i}
+          >
             {i + 1}
           </FocusableItem>
         ))}
