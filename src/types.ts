@@ -19,4 +19,5 @@ export interface ElementCallbacks {
 }
 
 export type Direction = 'left' | 'right' | 'up' | 'down';
+export type Axis = 'row' | 'column';
 export type TabIndex = -1 | 0;

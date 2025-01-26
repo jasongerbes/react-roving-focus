@@ -1,4 +1,5 @@
 import type {
+  Axis,
   Direction,
   ElementPosition,
   ElementWithPosition,
@@ -24,12 +25,12 @@ export function getElementPosition(element: FocusableElement): ElementPosition {
  * Determines whether two elements are overlapping in the specified direction.
  * If the overlap amount is greater than 1px, the elements are overlapping (a 1px overlap is considered a rounding error)
  */
-export function arePositionsOverlapping(
+function arePositionsOverlapping(
   target: ElementPosition,
   current: ElementPosition,
-  direction: Direction,
+  axis: Axis,
 ): boolean {
-  if (direction === 'left' || direction === 'right') {
+  if (axis === 'row') {
     // Calculate vertical overlap amount
     return (
       Math.min(target.bottom, current.bottom) -
@@ -49,7 +50,7 @@ export function arePositionsOverlapping(
 /**
  * Determines whether a target position is in a particular direction relative to the current position.
  */
-export function isPositionInDirection(
+function isPositionInDirection(
   target: ElementPosition,
   current: ElementPosition,
   direction: Direction,
@@ -67,26 +68,14 @@ export function isPositionInDirection(
 }
 
 /**
- * Returns the straight-line distance between two element positions.
- */
-export function getDistanceBetweenPositions(
-  a: ElementPosition,
-  b: ElementPosition,
-): number {
-  const dx = a.centerX - b.centerX;
-  const dy = a.centerY - b.centerY;
-  return Math.sqrt(dx * dx + dy * dy);
-}
-
-/**
  * Returns the top-left element.
  */
 export function getFirstElement(
   elements: ElementWithPosition[],
 ): FocusableElement | null {
   const sortedElements = elements.sort((a, b) => {
-    // Sort by left position if elements are roughly on the same row.
-    if (Math.abs(a.position.top - b.position.top) < 10) {
+    // Sort by left position if elements are on the same row.
+    if (arePositionsOverlapping(a.position, b.position, 'row')) {
       return a.position.left - b.position.left;
     }
     // Otherwise sort by top position.
@@ -97,21 +86,74 @@ export function getFirstElement(
 }
 
 /**
- * Returns the closest element to a given position.
+ * Returns the distance between the closest edges of two element positions.
  */
-export function getClosestElement(
+function getDistanceBetweenEdges(
+  a: ElementPosition,
+  b: ElementPosition,
+): number {
+  if (a.right <= b.left) {
+    // a is to the left of b
+    return b.left - a.right;
+  } else if (b.right <= a.left) {
+    // b is to the left of a
+    return a.left - b.right;
+  } else if (a.bottom <= b.top) {
+    // a is above b
+    return b.top - a.bottom;
+  } else if (b.bottom <= a.top) {
+    // b is above a
+    return a.top - b.bottom;
+  } else {
+    // a and b overlap
+    return 0;
+  }
+}
+
+/**
+ * Returns the distance between the center of two element positions.
+ */
+function getDistanceBetweenElements(
+  a: ElementPosition,
+  b: ElementPosition,
+): number {
+  const dx = a.centerX - b.centerX;
+  const dy = a.centerY - b.centerY;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
+/**
+ * Returns the nearest element to a given position.
+ */
+function getNearestElement(
   elements: ElementWithPosition[],
-  currentPosition: ElementPosition,
+  currentPos: ElementPosition,
 ): FocusableElement | null {
   const sortedElements = elements
     .map(({ element, position }) => ({
       element,
-      distance: getDistanceBetweenPositions(currentPosition, position),
+      edgeDistance: getDistanceBetweenEdges(position, currentPos),
+      centerDistance: getDistanceBetweenElements(position, currentPos),
     }))
-    .sort((a, b) => a.distance - b.distance);
+    .sort((a, b) => {
+      if (a.edgeDistance !== b.edgeDistance) {
+        return a.edgeDistance - b.edgeDistance;
+      }
+      return a.centerDistance - b.centerDistance;
+    });
 
-  const firstElement = sortedElements[0];
-  return firstElement ? firstElement.element : null;
+  if (sortedElements.length === 0) {
+    return null;
+  }
+
+  return sortedElements[0].element;
+}
+
+/**
+ * Returns the axis for a given direction.
+ */
+function getAxisForDirection(direction: Direction): Axis {
+  return direction === 'left' || direction === 'right' ? 'row' : 'column';
 }
 
 /**
@@ -135,17 +177,19 @@ export function getNextElement(
     return null;
   }
 
-  // Prefer elements that are overlapping with the current element in the direction.
+  const axis = getAxisForDirection(direction);
+
+  // Prefer elements that are overlapping with the current element on the given axis.
   const overlappingElements = otherElements.filter(({ position }) =>
-    arePositionsOverlapping(position, currentPosition, direction),
+    arePositionsOverlapping(position, currentPosition, axis),
   );
 
   if (overlappingElements.length > 0) {
-    return getClosestElement(overlappingElements, currentPosition);
+    return getNearestElement(overlappingElements, currentPosition);
   }
 
-  // Otherwise, return the closest element in the given direction.
-  return getClosestElement(otherElements, currentPosition);
+  // Otherwise, return the nearest element in the given direction.
+  return getNearestElement(otherElements, currentPosition);
 }
 
 /**
