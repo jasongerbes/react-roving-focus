@@ -50,6 +50,12 @@ export const useRovingFocus = <T extends FocusableElement>({
         case 'ArrowDown':
           context.focusNextElement('down');
           break;
+        case 'Home':
+          context.focusFirstElement();
+          break;
+        case 'End':
+          context.focusLastElement();
+          break;
         default:
           return;
       }

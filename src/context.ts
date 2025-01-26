@@ -9,6 +9,8 @@ export interface RovingFocusContextValue {
   unregisterElement: (element: FocusableElement) => void;
   setFocusedElement: (element: FocusableElement) => void;
   focusNextElement: (direction: Direction) => void;
+  focusFirstElement: () => void;
+  focusLastElement: () => void;
 }
 
 export const RovingFocusContext = createContext<RovingFocusContextValue | null>(
