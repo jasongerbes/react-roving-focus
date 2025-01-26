@@ -6,7 +6,7 @@ import storybook from 'eslint-plugin-storybook';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist'] },
+  { ignores: ['dist', 'storybook-static'] },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ['**/*.{ts,tsx}'],
@@ -28,7 +28,6 @@ export default tseslint.config(
   },
   {
     files: ['**/*.stories.tsx'],
-    plugins: { 'react-storybook': storybook },
-    rules: storybook.configs.recommended.rules,
+    extends: [...storybook.configs['flat/recommended']],
   },
 );
