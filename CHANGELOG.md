@@ -1,5 +1,11 @@
 # react-roving-focus
 
+## 0.0.5
+
+### Patch Changes
+
+- 0f6164a: Add support for Home and End key navigation
+
 ## 0.0.4
 
 ### Patch Changes
