@@ -1,7 +1,6 @@
 import React from 'react';
 import { RovingFocusGroup } from '../src';
 import { FocusableItem } from './focusable-item';
-import { cn } from './utils';
 import { LayoutContainer } from './layout-container';
 
 const evenRowCols = [
