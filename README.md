@@ -2,6 +2,8 @@
 
 Flexible roving focus for React (aka [roving tabindex](https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_roving_tabindex)) with support for lists, responsive grids, and arbitrary layouts.
 
+[![NPM](https://img.shields.io/npm/v/react-roving-focus.svg)](https://www.npmjs.com/package/react-roving-focus) [![bundlephobia](https://img.shields.io/bundlephobia/minzip/react-roving-focus)](https://bundlephobia.com/result?p=react-roving-focus) ![License](https://img.shields.io/github/license/jasongerbes/react-roving-focus)
+
 ## Installation
 
 ```bash
