@@ -16,7 +16,7 @@ export function GridLayout({ itemCount, columnCount }: GridLayoutProps) {
           'grid',
           columnCount === 'fixed' && 'grid-cols-3',
           columnCount === 'responsive' &&
-            'grid-cols-[repeat(auto-fill,_minmax(200px,_1fr))]',
+            'grid-cols-[repeat(auto-fill,_minmax(120px,_1fr))]',
         )}
       >
         {Array.from({ length: itemCount }, (_, i) => (
