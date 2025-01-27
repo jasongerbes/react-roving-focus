@@ -17,7 +17,7 @@ Refer to the [Storybook](https://jasongerbes.github.io/react-roving-focus) for v
 
 ## How it works
 
-Unlike traditional roving tabindex implementations, `react-roving-focus` determines navigation order using the **rendered size and position** of elements, rather than row or column indices. This enables keyboard navigation across any 1D or 2D layout (fixed or responsive) without configuration.
+Unlike traditional roving tabindex implementations, `react-roving-focus` determines navigation order using the **rendered size and position** of elements, rather than row or column indices. This enables keyboard navigation across any 1D or 2D layout (fixed or responsive) without any configuration.
 
 ### Keyboard Support
 
@@ -36,7 +36,7 @@ Use the following keys to move focus between elements:
 
 ### Performance
 
-To minimize re-renders, each element maintains its own `tabIndex` state via the `useRovingFocus()` hook. The `<RovingFocusGroup>` updates individual `tabIndex` state values in response to element registration, unregistration, focus changes, or enabled/disabled state changes.
+To minimize re-renders, each element maintains its own `tabIndex` state via the `useRovingFocus()` hook. The `<RovingFocusGroup>` updates individual `tabIndex` state values in response to element registration, unregistration, focus changes, and enabled/disabled state changes.
 
 The `<RovingFocusGroup>` determines the 'first' and 'last' elements during registration and unregistration. To track accessibility state changes, a [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) monitors the `disabled` and `aria-disabled` attributes of all registered elements.
 
@@ -65,9 +65,9 @@ function ExampleGroup() {
   return (
     <RovingFocusGroup>
       <div>
-        <ExampleItem>One</ExampleItem>
-        <ExampleItem>Two</ExampleItem>
-        <ExampleItem>Three</ExampleItem>
+        <ExampleItem>1</ExampleItem>
+        <ExampleItem>2</ExampleItem>
+        <ExampleItem>3</ExampleItem>
       </div>
     </RovingFocusGroup>
   );
@@ -86,7 +86,7 @@ function ExampleItem({ children }: { children: React.ReactNode }) {
 
 ### With an existing ref
 
-If your focusable element has an existing `ref`, provide it to the `useRovingFocus()` hook.
+If a focusable element has an existing `ref`, provide it to the `useRovingFocus()` hook.
 
 ```tsx
 import { useRef } from 'react';
