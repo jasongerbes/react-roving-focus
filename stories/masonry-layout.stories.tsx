@@ -27,6 +27,6 @@ export const DisabledItems: Story = {
 
 export const StressTest: Story = {
   args: {
-    rowCount: 1500,
+    rowCount: 1540,
   },
 };
