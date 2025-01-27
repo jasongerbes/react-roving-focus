@@ -26,7 +26,7 @@ export function RovingFocusGroup({ children }: RovingFocusGroupProps) {
   const lastElementRef = useRef<FocusableElement | null>(null);
   const elementMapRef = useRef(new Map<FocusableElement, ElementCallbacks>());
 
-  const getElementsWithPosition = (): ElementWithPosition[] => {
+  const getActiveElements = (): ElementWithPosition[] => {
     return Array.from(elementMapRef.current.keys())
       .filter(isElementActive)
       .map((element) => ({ element, position: getElementPosition(element) }));
@@ -37,7 +37,7 @@ export function RovingFocusGroup({ children }: RovingFocusGroupProps) {
     () =>
       debounce(() => {
         // Update the first and last elements.
-        const elements = getElementsWithPosition();
+        const elements = getActiveElements();
         firstElementRef.current = getFirstElement(elements);
         lastElementRef.current = getLastElement(elements);
 
@@ -66,19 +66,30 @@ export function RovingFocusGroup({ children }: RovingFocusGroupProps) {
     [],
   );
 
-  // Cancel debounced state updates when unmounting.
+  const updateState = useCallback(debouncedUpdateState, [debouncedUpdateState]);
+  const mutationObserver = useMemo(
+    () => new MutationObserver(updateState),
+    [updateState],
+  );
+
+  // Cancel debounced state updates and disconnect the mutation observer when unmounting.
   useUnmount(() => {
     debouncedUpdateState.cancel();
+    mutationObserver.disconnect();
   });
-
-  const updateState = useCallback(debouncedUpdateState, [debouncedUpdateState]);
 
   const registerElement = useCallback(
     (element: FocusableElement, callbacks: ElementCallbacks) => {
       elementMapRef.current.set(element, callbacks);
       updateState();
+
+      // Observe changes to the disabled state of the element.
+      mutationObserver.observe(element, {
+        attributes: true,
+        attributeFilter: ['disabled', 'aria-disabled'],
+      });
     },
-    [updateState],
+    [updateState, mutationObserver],
   );
 
   const unregisterElement = useCallback(
@@ -110,7 +121,7 @@ export function RovingFocusGroup({ children }: RovingFocusGroupProps) {
       if (!focusedElementRef.current) {
         return;
       }
-      const elements = getElementsWithPosition();
+      const elements = getActiveElements();
       const nextElement = getNextElement(
         focusedElementRef.current,
         direction,
