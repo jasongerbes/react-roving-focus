@@ -8,15 +8,41 @@ Flexible roving focus (aka [roving tabindex](https://www.w3.org/WAI/ARIA/apg/pra
 
 Refer to the [Storybook](https://jasongerbes.github.io/react-roving-focus) for various layout examples:
 
-- [Horizontal List](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-horizontal-layout--basic)
-- [Vertical List](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-vertical-layout--basic)
-- [Fixed Column Grid](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-grid-layout--fixed-columns)
-- [Responsive Column Grid](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-grid-layout--responsive-columns)
-- [Masonry Layout](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-masonry-layout--basic) (aka Modular Grid)
+- [Horizontal layout](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-horizontal-layout--basic)
+- [Vertical layout](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-vertical-layout--basic)
+- [Grid layout with fixed columns](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-grid-layout--fixed-columns)
+- [Grid layout with responsive columns](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-grid-layout--responsive-columns)
+- [Grid layout with disabled items](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-grid-layout--disabled-items)
+- [Masonry layout](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-masonry-layout--basic) (aka modular grid)
 
 ## How it works
 
 Unlike traditional roving tabindex implementations, `react-roving-focus` determines navigation order using the **rendered size and position** of elements, rather than row or column indices. This enables keyboard navigation across any 1D or 2D layout (fixed or responsive) without configuration.
+
+### Keyboard Support
+
+Use the following keys to move focus between elements:
+
+| Key                           | Function                                                   |
+| :---------------------------- | :--------------------------------------------------------- |
+| `Tab`                         | Move to next `<RovingFocusGroup>` or focusable element     |
+| `Shift + Tab`                 | Move to previous `<RovingFocusGroup>` or focusable element |
+| `←` (left arrow)              | Move focus to element on the left                          |
+| `→` (right arrow)             | Move focus to element on the right                         |
+| `↑` (up arrow)                | Move focus to element above                                |
+| `↓` (down arrow)              | Move focus to element below                                |
+| `Home` (or `fn` + `←` on Mac) | Move focus to first element in the `<RovingFocusGroup>`    |
+| `End` (or `fn` + `→` on Mac)  | Move focus to last element in the `<RovingFocusGroup>`     |
+
+### Performance
+
+To minimize re-renders, each element maintains its own `tabIndex` state via the `useRovingFocus()` hook. The `<RovingFocusGroup>` updates individual `tabIndex` state values in response to element registration, unregistration, focus changes, or enabled/disabled state changes.
+
+The `<RovingFocusGroup>` determines the 'first' and 'last' elements during registration and unregistration. To track accessibility state changes, a [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) monitors the `disabled` and `aria-disabled` attributes of all registered elements.
+
+When an arrow key is pressed, the 'next' element is calculated using multi-level filtering and simple distance calculations for efficiency. Element positions are intentionally not cached since layout changes (particularly those driven by state) may not be automatically detectable.
+
+Performance has been stress tested using various layouts with [10,000 focusable elements](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-grid-layout--stress-test).
 
 ## Installation
 
@@ -113,18 +139,3 @@ function ExampleItem({ children }: { children: React.ReactNode }) {
   );
 }
 ```
-
-## Keyboard Support
-
-Use the following keys to move focus between elements:
-
-| Key                           | Function                                                   |
-| :---------------------------- | :--------------------------------------------------------- |
-| `Tab`                         | Move to next `<RovingFocusGroup>` or focusable element     |
-| `Shift + Tab`                 | Move to previous `<RovingFocusGroup>` or focusable element |
-| `←` (left arrow)              | Move focus to element on the left                          |
-| `→` (right arrow)             | Move focus to element on the right                         |
-| `↑` (up arrow)                | Move focus to element above                                |
-| `↓` (down arrow)              | Move focus to element below                                |
-| `Home` (or `fn` + `←` on Mac) | Move focus to first element in the `<RovingFocusGroup>`    |
-| `End` (or `fn` + `→` on Mac)  | Move focus to last element in the `<RovingFocusGroup>`     |
