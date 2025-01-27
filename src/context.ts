@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import type { Direction, ElementCallbacks, FocusableElement } from './types.js';
+import type { Direction, ElementCallbacks, FocusableElement } from './types';
 
 export interface RovingFocusContextValue {
   registerElement: (

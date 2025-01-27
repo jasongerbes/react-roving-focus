@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import BrickLayout from './brick-layout';
+import { MasonryLayout } from './masonry-layout';
 
 const meta = {
-  title: 'Examples/Brick Layout',
-  component: BrickLayout,
-} satisfies Meta<typeof BrickLayout>;
+  title: 'Examples/Masonry Layout',
+  component: MasonryLayout,
+} satisfies Meta<typeof MasonryLayout>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

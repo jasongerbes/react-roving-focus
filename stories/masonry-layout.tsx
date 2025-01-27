@@ -22,11 +22,11 @@ const oddRowCols = [
   'col-span-1',
 ];
 
-export interface BrickLayoutProps {
+export interface MasonryLayoutProps {
   rowCount: number;
 }
 
-export default function BrickLayout({ rowCount }: BrickLayoutProps) {
+export function MasonryLayout({ rowCount }: MasonryLayoutProps) {
   const rows = Array(rowCount)
     .fill(null)
     .map((_, rowIndex) => (rowIndex % 2 === 1 ? oddRowCols : evenRowCols));

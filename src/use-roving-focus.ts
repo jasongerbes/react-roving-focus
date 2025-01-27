@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useNewOrExistingRef } from './use-new-or-existing-ref.js';
-import type { FocusableElement, TabIndex } from './types.js';
-import { useRovingFocusContext } from './context.js';
+import { useNewOrExistingRef } from './use-new-or-existing-ref';
+import type { FocusableElement, TabIndex } from './types';
+import { useRovingFocusContext } from './context';
 
 export interface UseRovingFocusOptions<T extends FocusableElement> {
   ref?: React.RefObject<T | null>;
