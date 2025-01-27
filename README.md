@@ -16,7 +16,7 @@ Refer to the [Storybook](https://jasongerbes.github.io/react-roving-focus) for v
 
 ## How it works
 
-Unlike traditional roving tabindex implementations, `react-roving-focus` determines navigation order using the **rendered size and position** of elements, rather than row or column indices. This enables keyboard navigation across any linear or grid layout (fixed or responsive) without configuration.
+Unlike traditional roving tabindex implementations, `react-roving-focus` determines navigation order using the **rendered size and position** of elements, rather than row or column indices. This enables keyboard navigation across any 1D or 2D layout (fixed or responsive) without configuration.
 
 ## Installation
 
