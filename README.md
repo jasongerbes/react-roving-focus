@@ -10,9 +10,9 @@ Refer to the [Storybook](https://jasongerbes.github.io/react-roving-focus) for v
 
 - [Horizontal layout](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-horizontal-layout--basic)
 - [Vertical layout](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-vertical-layout--basic)
-- [Grid layout with fixed columns](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-grid-layout--fixed-columns)
-- [Grid layout with responsive columns](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-grid-layout--responsive-columns)
-- [Grid layout with disabled items](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-grid-layout--disabled-items)
+- [Grid layout](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-grid-layout--fixed-columns)
+- [Responsive grid layout](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-grid-layout--responsive-columns)
+- [Nested grid layout](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-nested-grid-layout--basic)
 - [Masonry layout](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-masonry-layout--basic) (aka modular grid)
 
 ## How it works
