@@ -58,7 +58,7 @@ function ExampleItem({ children }: { children: React.ReactNode }) {
 }
 ```
 
-### Use an existing ref
+### With an existing ref
 
 If your focusable element has an existing `ref`, provide it to the `useRovingFocus()` hook.
 
@@ -78,9 +78,25 @@ function ExampleItem({ children }: { children: React.ReactNode }) {
 }
 ```
 
-### Disable a focusable element
+### With disabled elements
 
-To disable a focusable element, provide the `disabled` option to the `useRovingFocus()` hook.
+To disable a focusable element, set the `disabled` or `aria-disabled` attribute on the focusable element.
+
+```tsx
+import { useRovingFocus } from 'react-roving-focus';
+
+function ExampleItem({ children }: { children: React.ReactNode }) {
+  const { ref, tabIndex } = useRovingFocus<HTMLButtonElement>();
+
+  return (
+    <button ref={ref} tabIndex={tabIndex} disabled>
+      {children}
+    </button>
+  );
+}
+```
+
+Alternatively, set `disabled: true` in the `useRovingFocus()` hook.
 
 ```tsx
 import { useRovingFocus } from 'react-roving-focus';

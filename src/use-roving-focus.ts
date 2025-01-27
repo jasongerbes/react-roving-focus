@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNewOrExistingRef } from './use-new-or-existing-ref';
 import type { FocusableElement, TabIndex } from './types';
 import { useRovingFocusContext } from './context';
+import { useIsElementDisabled } from './use-is-element-disabled';
 
 export interface UseRovingFocusOptions<T extends FocusableElement> {
   ref?: React.RefObject<T | null>;
@@ -15,13 +16,15 @@ export interface UseRovingFocusResult<T extends FocusableElement> {
 
 export const useRovingFocus = <T extends FocusableElement>({
   ref: existingRef,
-  disabled = false,
+  ...options
 }: UseRovingFocusOptions<T> = {}): UseRovingFocusResult<T> => {
   const context = useRovingFocusContext();
   const [tabIndex, setTabIndex] = useState<TabIndex>(-1);
 
   // Type cast for backwards compatibility, as the useRef return type changed in React 19.
   const ref = useNewOrExistingRef(existingRef) as React.RefObject<T>;
+  const elementDisabled = useIsElementDisabled(ref);
+  const disabled = options.disabled || elementDisabled;
 
   // Register and unregister the element when it mounts and unmounts.
   useEffect(() => {

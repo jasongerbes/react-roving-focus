@@ -214,8 +214,15 @@ export function getNextElement(
  * Determines whether an element is active (i.e. not disabled).
  */
 export function isElementActive(element: FocusableElement): boolean {
+  return !isElementDisabled(element);
+}
+
+/**
+ * Determines whether an element is disabled.
+ */
+export function isElementDisabled(element: FocusableElement): boolean {
   return (
-    element.getAttribute('disabled') !== 'true' &&
-    element.getAttribute('aria-disabled') !== 'true'
+    ('disabled' in element && element.disabled === true) ||
+    element.ariaDisabled === 'true'
   );
 }

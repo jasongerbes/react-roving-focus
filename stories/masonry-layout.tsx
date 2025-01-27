@@ -24,9 +24,10 @@ const oddRowCols = [
 
 export interface MasonryLayoutProps {
   rowCount: number;
+  disabledItems?: number[];
 }
 
-export function MasonryLayout({ rowCount }: MasonryLayoutProps) {
+export function MasonryLayout({ rowCount, disabledItems }: MasonryLayoutProps) {
   const rows = Array(rowCount)
     .fill(null)
     .map((_, rowIndex) => (rowIndex % 2 === 1 ? oddRowCols : evenRowCols));
@@ -39,7 +40,11 @@ export function MasonryLayout({ rowCount }: MasonryLayoutProps) {
         {rows.map((row, rowIndex) => (
           <React.Fragment key={rowIndex}>
             {row.map((colSpan) => (
-              <FocusableItem key={itemCounter} className={colSpan}>
+              <FocusableItem
+                key={itemCounter}
+                className={colSpan}
+                disabled={disabledItems?.includes(itemCounter)}
+              >
                 {itemCounter++}
               </FocusableItem>
             ))}

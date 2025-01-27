@@ -12,7 +12,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   args: {
-    itemCount: 10,
+    itemCount: 5,
     scroll: false,
   },
 };
@@ -21,6 +21,14 @@ export const Scrollable: Story = {
   args: {
     itemCount: 50,
     scroll: true,
+  },
+};
+
+export const DisabledItems: Story = {
+  args: {
+    itemCount: 5,
+    scroll: false,
+    disabledItems: [2, 3],
   },
 };
 

@@ -24,6 +24,14 @@ export const ResponsiveColumns: Story = {
   },
 };
 
+export const DisabledItems: Story = {
+  args: {
+    itemCount: 12,
+    columnCount: 'fixed',
+    disabledItems: [1, 5, 6, 7, 11],
+  },
+};
+
 export const StressTest: Story = {
   args: {
     itemCount: 10000,
