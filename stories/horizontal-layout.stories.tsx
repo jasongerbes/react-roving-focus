@@ -31,6 +31,14 @@ export const Wrapped: Story = {
   },
 };
 
+export const DisabledItems: Story = {
+  args: {
+    itemCount: 5,
+    overflow: 'none',
+    disabledItems: [1, 3],
+  },
+};
+
 export const StressTest: Story = {
   args: {
     itemCount: 10000,

@@ -6,9 +6,14 @@ import { cn } from './utils';
 export interface GridLayoutProps {
   itemCount: number;
   columnCount: 'fixed' | 'responsive';
+  disabledItems?: number[];
 }
 
-export function GridLayout({ itemCount, columnCount }: GridLayoutProps) {
+export function GridLayout({
+  itemCount,
+  columnCount,
+  disabledItems,
+}: GridLayoutProps) {
   return (
     <RovingFocusGroup>
       <LayoutContainer
@@ -20,7 +25,9 @@ export function GridLayout({ itemCount, columnCount }: GridLayoutProps) {
         )}
       >
         {Array.from({ length: itemCount }, (_, i) => (
-          <FocusableItem key={i}>{i + 1}</FocusableItem>
+          <FocusableItem key={i} disabled={disabledItems?.includes(i + 1)}>
+            {i + 1}
+          </FocusableItem>
         ))}
       </LayoutContainer>
     </RovingFocusGroup>

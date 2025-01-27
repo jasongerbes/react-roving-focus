@@ -6,11 +6,13 @@ import { cn } from './utils';
 export interface HorizontalLayoutProps {
   itemCount: number;
   overflow: 'scroll' | 'wrap' | 'none';
+  disabledItems?: number[];
 }
 
 export function HorizontalLayout({
   itemCount,
   overflow,
+  disabledItems,
 }: HorizontalLayoutProps) {
   return (
     <RovingFocusGroup>
@@ -25,6 +27,7 @@ export function HorizontalLayout({
           <FocusableItem
             className={cn('grow', overflow !== 'none' && 'px-8')}
             key={i}
+            disabled={disabledItems?.includes(i + 1)}
           >
             {i + 1}
           </FocusableItem>

@@ -1,7 +1,7 @@
 {
   "name": "react-roving-focus",
   "version": "0.0.5",
-  "description": "Flexible roving focus for React",
+  "description": "Flexible roving focus for React with support for any fixed or responsive layout.",
   "license": "MIT",
   "keywords": [
     "react",
@@ -43,6 +43,7 @@
     "@eslint/js": "^9.19.0",
     "@storybook/addon-essentials": "^8.5.1",
     "@storybook/blocks": "^8.5.1",
+    "@storybook/manager-api": "^8.5.1",
     "@storybook/react": "^8.5.1",
     "@storybook/react-vite": "^8.5.1",
     "@storybook/test": "^8.5.1",
