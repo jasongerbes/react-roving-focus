@@ -30,7 +30,7 @@ bun add react-roving-focus
 
 ## Usage
 
-Wrap a group of elements in a `<RovingFocusGroup>` and use the `useRovingFocus()` hook to control the `tabIndex` of each element.
+Wrap a group of focusable elements in a `<RovingFocusGroup>` and use the `useRovingFocus()` hook to control the `tabIndex` of each element.
 
 ```tsx
 import { RovingFocusGroup, useRovingFocus } from 'react-roving-focus';
