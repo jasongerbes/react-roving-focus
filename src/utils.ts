@@ -4,7 +4,7 @@ import type {
   ElementPosition,
   ElementWithPosition,
   FocusableElement,
-} from './types';
+} from './types.js';
 
 /**
  * Gets the current position of an element.

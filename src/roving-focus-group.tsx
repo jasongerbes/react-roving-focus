@@ -6,15 +6,15 @@ import type {
   FocusableElement,
 } from './types.js';
 import debounce from 'lodash.debounce';
-import { useUnmount } from './use-unmount';
-import { RovingFocusContext } from './context';
+import { useUnmount } from './use-unmount.js';
+import { RovingFocusContext } from './context.js';
 import {
   getElementPosition,
   getFirstElement,
   getLastElement,
   getNextElement,
   isElementActive,
-} from './utils';
+} from './utils.js';
 
 export interface RovingFocusGroupProps {
   children: React.ReactNode;

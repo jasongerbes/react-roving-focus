@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { FocusableElement } from './types';
-import { isElementDisabled } from './utils';
+import { FocusableElement } from './types.js';
+import { isElementDisabled } from './utils.js';
 
 export function useIsElementDisabled(
   ref: React.RefObject<FocusableElement | null>,

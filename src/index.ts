@@ -2,9 +2,9 @@ export {
   useRovingFocus,
   type UseRovingFocusOptions,
   type UseRovingFocusResult,
-} from './use-roving-focus';
+} from './use-roving-focus.js';
 export {
   RovingFocusGroup,
   type RovingFocusGroupProps,
-} from './roving-focus-group';
-export { type FocusableElement } from './types';
+} from './roving-focus-group.jsx';
+export { type FocusableElement } from './types.js';
