@@ -17,6 +17,15 @@ export const Basic: Story = {
   },
 };
 
+export const RTL: Story = {
+  name: 'Right-to-Left',
+  args: {
+    itemCount: 5,
+    overflow: 'none',
+    dir: 'rtl',
+  },
+};
+
 export const Scrollable: Story = {
   args: {
     itemCount: 50,

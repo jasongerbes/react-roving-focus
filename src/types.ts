@@ -18,6 +18,7 @@ export interface ElementCallbacks {
   onTabIndexChange: (tabIndex: TabIndex) => void;
 }
 
-export type Direction = 'left' | 'right' | 'up' | 'down';
+export type TextDirection = 'rtl' | 'ltr';
+export type MoveDirection = 'left' | 'right' | 'up' | 'down';
 export type Axis = 'row' | 'column';
 export type TabIndex = -1 | 0;

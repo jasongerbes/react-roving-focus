@@ -1,9 +1,10 @@
 import { useCallback, useMemo, useRef } from 'react';
 import type {
-  Direction,
+  MoveDirection,
   ElementCallbacks,
   ElementWithPosition,
   FocusableElement,
+  TextDirection,
 } from './types.js';
 import debounce from 'lodash.debounce';
 import { useUnmount } from './use-unmount.js';
@@ -15,16 +16,19 @@ import {
   getNextElement,
   isElementActive,
 } from './utils.js';
+import { useTextDirection } from './use-text-direction.js';
 
 export interface RovingFocusGroupProps {
   children: React.ReactNode;
+  dir?: TextDirection;
 }
 
-export function RovingFocusGroup({ children }: RovingFocusGroupProps) {
+export function RovingFocusGroup({ children, dir }: RovingFocusGroupProps) {
   const focusedElementRef = useRef<FocusableElement | null>(null);
   const firstElementRef = useRef<FocusableElement | null>(null);
   const lastElementRef = useRef<FocusableElement | null>(null);
   const elementMapRef = useRef(new Map<FocusableElement, ElementCallbacks>());
+  const textDirection = useTextDirection(dir);
 
   const getActiveElements = (): ElementWithPosition[] => {
     return Array.from(elementMapRef.current.keys())
@@ -38,8 +42,8 @@ export function RovingFocusGroup({ children }: RovingFocusGroupProps) {
       debounce(() => {
         // Update the first and last elements.
         const elements = getActiveElements();
-        firstElementRef.current = getFirstElement(elements);
-        lastElementRef.current = getLastElement(elements);
+        firstElementRef.current = getFirstElement(elements, textDirection);
+        lastElementRef.current = getLastElement(elements, textDirection);
 
         // Clear the focused element if it's no longer registered.
         if (
@@ -63,7 +67,7 @@ export function RovingFocusGroup({ children }: RovingFocusGroupProps) {
           }
         }
       }),
-    [],
+    [textDirection],
   );
 
   const updateState = useCallback(debouncedUpdateState, [debouncedUpdateState]);
@@ -117,7 +121,7 @@ export function RovingFocusGroup({ children }: RovingFocusGroupProps) {
   );
 
   const focusNextElement = useCallback(
-    (direction: Direction) => {
+    (direction: MoveDirection) => {
       if (!focusedElementRef.current) {
         return;
       }
