@@ -23,7 +23,7 @@ jobs:
           node-version: 20
 
       - name: Install Dependencies
-        run: npm clean-install
+        run: npm install
 
       - name: Run CI
         run: npm run ci
