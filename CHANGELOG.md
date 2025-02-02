@@ -1,5 +1,11 @@
 # react-roving-focus
 
+## 0.0.6
+
+### Patch Changes
+
+- b441320: Add nested grid example
+
 ## 0.0.5
 
 ### Patch Changes
