@@ -33,6 +33,7 @@
     "check-format": "prettier --check .",
     "check-exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
     "changeset": "changeset",
+    "release": "npm run build && changeset publish",
     "local-release": "changeset version && changeset publish",
     "prepublishOnly": "npm run ci",
     "build-storybook": "storybook build"
