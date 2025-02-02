@@ -17,6 +17,15 @@ export const FixedColumns: Story = {
   },
 };
 
+export const RTL: Story = {
+  name: 'Right-to-Left',
+  args: {
+    itemCount: 12,
+    columnCount: 'fixed',
+    dir: 'rtl',
+  },
+};
+
 export const ResponsiveColumns: Story = {
   args: {
     itemCount: 50,

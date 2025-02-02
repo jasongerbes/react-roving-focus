@@ -7,4 +7,4 @@ export {
   RovingFocusGroup,
   type RovingFocusGroupProps,
 } from './roving-focus-group.jsx';
-export { type FocusableElement } from './types.js';
+export { type FocusableElement, type TextDirection } from './types.js';

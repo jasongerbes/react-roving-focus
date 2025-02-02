@@ -6,7 +6,7 @@ Flexible roving focus (aka [roving tabindex](https://www.w3.org/WAI/ARIA/apg/pra
 
 ## Examples
 
-Refer to the [Storybook](https://jasongerbes.github.io/react-roving-focus) for various layout examples:
+Refer to the [Storybook](https://jasongerbes.github.io/react-roving-focus) for various examples:
 
 - [Horizontal layout](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-horizontal-layout--basic)
 - [Vertical layout](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-vertical-layout--basic)
@@ -14,6 +14,7 @@ Refer to the [Storybook](https://jasongerbes.github.io/react-roving-focus) for v
 - [Responsive grid layout](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-grid-layout--responsive-columns)
 - [Nested grid layout](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-nested-grid-layout--basic)
 - [Masonry layout](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-masonry-layout--basic) (aka modular grid)
+- [Right-to-left layout](https://jasongerbes.github.io/react-roving-focus/?path=/story/examples-grid-layout--rtl)
 
 ## How it works
 
@@ -61,7 +62,7 @@ Wrap a group of focusable elements in a `<RovingFocusGroup>` and use the `useRov
 ```tsx
 import { RovingFocusGroup, useRovingFocus } from 'react-roving-focus';
 
-function ExampleGroup() {
+function Example() {
   return (
     <RovingFocusGroup>
       <div>
@@ -136,6 +137,48 @@ function ExampleItem({ children }: { children: React.ReactNode }) {
     <button ref={ref} tabIndex={tabIndex}>
       {children}
     </button>
+  );
+}
+```
+
+### With right-to-left layouts
+
+To support right-to-left layouts, set `dir="rtl"` on the root HTML element.
+
+```tsx
+import { RovingFocusGroup } from 'react-roving-focus';
+
+function App() {
+  return (
+    <html dir="rtl">
+      <body>
+        <RovingFocusGroup>
+          <div>
+            <ExampleItem>1</ExampleItem>
+            <ExampleItem>2</ExampleItem>
+            <ExampleItem>3</ExampleItem>
+          </div>
+        </RovingFocusGroup>
+      </body>
+    </html>
+  );
+}
+```
+
+Alternatively, set `dir="rtl"` on the `<RovingFocusGroup>`:
+
+```tsx
+import { RovingFocusGroup } from 'react-roving-focus';
+
+function Example() {
+  return (
+    <RovingFocusGroup dir="rtl">
+      <div>
+        <ExampleItem>1</ExampleItem>
+        <ExampleItem>2</ExampleItem>
+        <ExampleItem>3</ExampleItem>
+      </div>
+    </RovingFocusGroup>
   );
 }
 ```

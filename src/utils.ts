@@ -1,9 +1,10 @@
 import type {
   Axis,
-  Direction,
+  MoveDirection,
   ElementPosition,
   ElementWithPosition,
   FocusableElement,
+  TextDirection,
 } from './types.js';
 
 /**
@@ -53,7 +54,7 @@ function arePositionsOverlapping(
 function isPositionInDirection(
   target: ElementPosition,
   current: ElementPosition,
-  direction: Direction,
+  direction: MoveDirection,
 ): boolean {
   switch (direction) {
     case 'left':
@@ -68,15 +69,21 @@ function isPositionInDirection(
 }
 
 /**
- * Returns the top-left element.
+ * Returns the first element based on the text direction.
+ *
+ * - 'ltr': The first element is the top left element.
+ * - 'rtl': The first element is the top right element.
  */
 export function getFirstElement(
   elements: ElementWithPosition[],
+  textDirection: TextDirection,
 ): FocusableElement | null {
   const sortedElements = elements.sort((a, b) => {
-    // Sort by left position if elements are on the same row.
+    // Sort by left/right position if elements are on the same row.
     if (arePositionsOverlapping(a.position, b.position, 'row')) {
-      return a.position.left - b.position.left;
+      return textDirection === 'ltr'
+        ? a.position.left - b.position.left
+        : b.position.right - a.position.right;
     }
     // Otherwise sort by top position.
     return a.position.top - b.position.top;
@@ -86,15 +93,21 @@ export function getFirstElement(
 }
 
 /**
- * Returns the bottom-right element.
+ * Returns the last element based on the text direction.
+ *
+ * - 'ltr': The last element is the bottom right element.
+ * - 'rtl': The last element is the bottom left element.
  */
 export function getLastElement(
   elements: ElementWithPosition[],
+  textDirection: TextDirection,
 ): FocusableElement | null {
   const sortedElements = elements.sort((a, b) => {
-    // Sort by right position if elements are on the same row.
+    // Sort by left/right position if elements are on the same row.
     if (arePositionsOverlapping(a.position, b.position, 'row')) {
-      return b.position.right - a.position.right;
+      return textDirection === 'ltr'
+        ? b.position.right - a.position.right
+        : a.position.left - b.position.left;
     }
     // Otherwise sort by bottom position.
     return b.position.bottom - a.position.bottom;
@@ -170,7 +183,7 @@ function getNearestElement(
 /**
  * Returns the axis for a given direction.
  */
-function getAxisForDirection(direction: Direction): Axis {
+function getAxisForDirection(direction: MoveDirection): Axis {
   return direction === 'left' || direction === 'right' ? 'row' : 'column';
 }
 
@@ -179,7 +192,7 @@ function getAxisForDirection(direction: Direction): Axis {
  */
 export function getNextElement(
   currentElement: FocusableElement,
-  direction: Direction,
+  direction: MoveDirection,
   elements: ElementWithPosition[],
 ): FocusableElement | null {
   const currentPosition = getElementPosition(currentElement);
