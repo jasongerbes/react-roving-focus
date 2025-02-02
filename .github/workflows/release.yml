@@ -7,6 +7,10 @@ on:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
+permissions:
+  contents: write # Required for creating releases and pushing tags
+  pull-requests: write # Required for creating release PRs
+
 jobs:
   release:
     runs-on: ubuntu-latest
