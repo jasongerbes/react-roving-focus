@@ -1,1 +1,6 @@
 @import 'tailwindcss';
+
+/* Prevent badge images from wrapping lines. */
+img {
+  display: inline;
+}
