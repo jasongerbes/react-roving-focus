@@ -1,5 +1,11 @@
 # react-roving-focus
 
+## 0.0.7
+
+### Patch Changes
+
+- a35718b: Update Storybook to latest
+
 ## 0.0.6
 
 ### Patch Changes
